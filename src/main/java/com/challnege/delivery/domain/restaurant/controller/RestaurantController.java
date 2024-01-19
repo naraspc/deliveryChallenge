@@ -2,6 +2,7 @@ package com.challnege.delivery.domain.restaurant.controller;
 
 import com.challnege.delivery.domain.restaurant.dto.RestaurantRequestDto;
 import com.challnege.delivery.domain.restaurant.dto.RestaurantResponseDto;
+import com.challnege.delivery.domain.restaurant.dto.RestaurantSearchResponseDto;
 import com.challnege.delivery.domain.restaurant.entity.Restaurant;
 import com.challnege.delivery.domain.restaurant.service.RestaurantService;
 import com.challnege.delivery.global.audit.Category;
@@ -107,7 +108,7 @@ public class RestaurantController {
         Page<Restaurant> restaurantPage = restaurantService.searchOptions(pageable, restaurantName, address, category);
         List<Restaurant> restaurantList = restaurantPage.getContent();
 
-        PageDto pageDto = new PageDto<>(RestaurantResponseDto.fromListRestaurantEntity(restaurantList), restaurantPage);
+        PageDto pageDto = new PageDto<>(RestaurantSearchResponseDto.fromListRestaurantEntity(restaurantList), restaurantPage);
         model.addAttribute("pageDto", pageDto);
         return "restaurantPage";
     }
