@@ -72,7 +72,7 @@ public class RestaurantController {
 
     @GetMapping
     public String pageFindRestaurantByAll(Model model,
-                                          @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+                                          @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
         Page<Restaurant> restaurantPage = restaurantService.pageFindRestaurantByAll(pageable);
         List<Restaurant> restaurantList = restaurantPage.getContent();
 
@@ -102,7 +102,7 @@ public class RestaurantController {
     public String searchRestaurants(@RequestParam(name = "restaurantName", required = false) String restaurantName,
                                     @RequestParam(name = "address", required = false) String address,
                                     @RequestParam(name = "category", required = false) String category,
-                                    @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.ASC,page = 1) Pageable pageable,
+                                    @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.ASC,page = 1) Pageable pageable,
                                     Model model) {
         Page<Restaurant> restaurantPage = restaurantService.searchOptions(pageable, restaurantName, address, category);
         List<Restaurant> restaurantList = restaurantPage.getContent();
