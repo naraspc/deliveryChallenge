@@ -64,9 +64,16 @@
     <h1>메인페이지(index)</h1>
   </div>
   <div class="search-bar">
-    <input class="form-control" type="text" placeholder="검색어" aria-label="Search">
-    <button class="btn btn-outline-secondary" type="button">검색</button>
+    <form th:action="@{/restaurants/search}" method="get">
+      <input class="form-control" type="text" th:name="restaurantName" th:value="${restaurantName}" placeholder="음식점 이름" aria-label="Search">
+      <input class="form-control" type="text" th:name="address" th:value="${address}" placeholder="주소" aria-label="Search">
+      <input class="form-control" type="text" th:name="category" th:value="${category}" placeholder="카테고리" aria-label="Search">
+      <button class="btn btn-outline-secondary" type="submit">조건검색</button>
+    </form>
   </div>
+  <script>
+</script>
+
   <!-- Thymeleaf loop for restaurant items with limit -->
   <div th:each="restaurant, i : ${pageDto.data}" class="restaurant-item" th:limit="10">
     <h2 th:text="${restaurant.restaurantName}">Restaurant Name</h2>

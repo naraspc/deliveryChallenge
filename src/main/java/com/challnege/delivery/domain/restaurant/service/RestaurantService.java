@@ -6,6 +6,8 @@ import com.challnege.delivery.domain.restaurant.dto.RestaurantRequestDto;
 import com.challnege.delivery.domain.restaurant.dto.RestaurantResponseDto;
 import com.challnege.delivery.domain.restaurant.entity.Restaurant;
 import com.challnege.delivery.domain.restaurant.repository.RestaurantRepository;
+import com.challnege.delivery.domain.search.SearchRepository;
+import com.challnege.delivery.domain.search.SearchRepositoryImpl;
 import com.challnege.delivery.global.audit.Category;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,6 +26,7 @@ public class RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
     private final MemberService memberService;
+    private final SearchRepository searchRepository;
 
     //Create
     public RestaurantResponseDto createRestaurant(RestaurantRequestDto restaurantRequestDto, UserDetails auth) {
@@ -88,5 +91,11 @@ public class RestaurantService {
         Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(restaurantId);
         Restaurant restaurant = optionalRestaurant.orElseThrow(() -> new NullPointerException("식당을 찾을 수 없습니다."));
         return restaurant;
+    }
+
+    public Page<Restaurant> searchOptions(Pageable pageable, String restaurantName, String address, String category) {
+        Pageable pageRequest = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize(), pageable.getSort());
+        return searchRepository.findBySearchOption(pageRequest, restaurantName, address, category);
+
     }
 }

@@ -5,6 +5,7 @@ import com.challnege.delivery.domain.menu.entity.Menu;
 import com.challnege.delivery.domain.restaurant.entity.Restaurant;
 import com.challnege.delivery.domain.review.entity.Review;
 import com.challnege.delivery.global.audit.Category;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ public class RestaurantResponseDto {
     private final String address;
     private final Category category;
     private final String resNumber;
+    @JsonIgnore
     private final List<Menu> menu;
     private final String ownerName;
     private final List<Review> reviews;
