@@ -106,7 +106,7 @@ jobs:
    steps:
      - name : 배포 스크립트 실행
        run: |
-         sh /home/ubuntu/deploy.sh
+         sh /deploy.sh
 
 #      ## deploy to develop
 #      - name: Deploy to dev
