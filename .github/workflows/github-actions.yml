@@ -101,7 +101,7 @@ jobs:
 
   docker-pull-and-run:
    runs-on: [self-hosted, dev]
-   if: ${{ CI-CD.result == 'success' }}
+   if: ${{ needs.CI-CD.result == 'success' }}
    needs: [ CI-CD ]
    steps:
      - name : 배포 스크립트 실행
