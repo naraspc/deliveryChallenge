@@ -10,4 +10,9 @@ public class AlbHealthcheck {
     public String healthcheck() {
         return "OK";
     }
+
+    @GetMapping("/health-check")
+    public String healthcheckForDeploy() {
+        return "up";
+    }
 }
