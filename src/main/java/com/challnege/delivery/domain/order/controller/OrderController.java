@@ -21,12 +21,12 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping("/{menuId}")
-    private String addToOrder(@PathVariable("restaurantId") long restaurantId,
+    private ResponseEntity addToOrder(@PathVariable("restaurantId") long restaurantId,
                               @PathVariable("menuId") long menuId,
                               @RequestParam long quantity,
                               @AuthenticationPrincipal UserDetails auth) {
         OrderResponseDto orderResponseDto = orderService.addToOrder(restaurantId, menuId, quantity, auth);
-        return "redirect:/restaurants/" + restaurantId;
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping
