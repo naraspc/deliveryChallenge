@@ -71,7 +71,7 @@ public class RestaurantController {
 
         @GetMapping
         public String pageFindRestaurantByAll(Model model,
-                                              @PageableDefault(size = 10,sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+                                              @PageableDefault(size = 20,sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
             Page<Restaurant> restaurantPage = restaurantService.pageFindRestaurantByAll(pageable);
             List<Restaurant> restaurantList = restaurantPage.getContent();
 
@@ -98,7 +98,7 @@ public class RestaurantController {
     @GetMapping("/search")
     public String pageFindRestaurantsByKeyword(@RequestParam("keyword") String keyword,
                                                Model model,
-                                               @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+                                               @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
         Page<RestaurantResponseDto> restaurantPage = restaurantService.searchRestaurantsPageable(keyword, pageable);
         PageDto<RestaurantResponseDto> pageDto = new PageDto<>(restaurantPage.getContent(), restaurantPage);
         model.addAttribute("pageDto", pageDto);
