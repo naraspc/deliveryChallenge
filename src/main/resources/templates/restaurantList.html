@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,12 +11,10 @@
             padding: 10px;
             margin-bottom: 20px;
         }
-
         .search-bar {
             padding: 10px;
             margin-bottom: 20px;
         }
-
         .restaurant-item {
             background-color: #e9ecef;
             border: 1px solid #dee2e6;
@@ -25,47 +23,52 @@
             cursor: pointer;
             transition: background-color 0.2s ease;
         }
-
         .restaurant-item:hover {
             background-color: #ced4da;
         }
     </style>
 
-
+    <script>
         <script>
-            function makeOrder() {
-            // Get Authorization token from local storage
-            const authorization = localStorage.getItem('Authorization');
+function makeOrder() {
+    // Get Authorization token from local storage
+     const authorization = localStorage.getItem('Authorization');
 
-            fetch(`/restaurants/${restaurantId}/orders`, {
-            method: 'Patch',
-            headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'Bearer ' + authorization,
+     fetch(`/restaurants/${restaurantId}/orders`, {
+        method: 'Patch',
+        headers: {
+         'Content-Type': 'application/x-www-form-urlencoded',
+         'Authorization': 'Bearer ' + authorization,
         }
-        })
-            .then(response => response.json())
-            .then(data => {
-            // Handle the response as needed
-            console.log(data);
-        })
-            .catch(error => console.error('Error:', error));
-        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Handle the response as needed
+        console.log(data);
+    })
+    .catch(error => console.error('Error:', error));
+}
+</script>
     </script>
-
 </head>
 <body>
 <div class="container mt-4">
     <div class="index-header text-center">
         <h1>메인페이지(index)</h1>
     </div>
-    <h1>레스토랑 검색</h1>
-    <form action="/restaurants/search" method="GET">
-        <div class="search-bar">
-            <input class="form-control" type="text" name="keyword" placeholder="키워드 입력" aria-label="Search">
-            <button class="btn btn-outline-secondary" type="submit">검색</button>
-        </div>
-    </form>
+<!--    <div class="search-bar">-->
+<!--        <input class="form-control" type="text" placeholder="검색어" aria-label="Search">-->
+<!--        <button class="btn btn-outline-secondary" type="button">검색</button>-->
+<!--    </div>-->
+    <div class="search-bar">
+        <form th:action="@{/restaurants/search}" method="get">
+            <input class="form-control" type="text" th:name="restaurantName" placeholder="음식점 이름" aria-label="Search">
+            <input class="form-control" type="text" th:name="address" placeholder="주소" aria-label="Search">
+            <input class="form-control" type="text" th:name="category" placeholder="카테고리" aria-label="Search">
+            <button class="btn btn-outline-secondary" type="submit">조건검색</button>
+        </form>
+    </div>
+
     <div th:each="restaurant : ${restaurants}" class="restaurant-item">
         <h2 th:text="${restaurant.restaurantName}">Restaurant Name</h2>
         <p th:text="${restaurant.address}">Address</p>
