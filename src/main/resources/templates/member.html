@@ -1,0 +1,22 @@
+<!-- src/main/resources/templates/member.html -->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Member Information</title>
+</head>
+<body>
+
+<h1>Member Information</h1>
+
+<p th:text="'Member ID: ' + ${memberResponseDto.memberId}"></p>
+<p th:text="'Email: ' + ${memberResponseDto.email}"></p>
+<p th:text="'Nickname: ' + ${memberResponseDto.nickName}"></p>
+<p th:text="'Phone Number: ' + ${memberResponseDto.phoneNumber}"></p>
+<p th:text="'Address: ' + ${memberResponseDto.address}"></p>
+<p th:text="'Point: ' + ${memberResponseDto.point}"></p>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Details</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header">
+      <h2 class="text-center">Order Details</h2>
+    </div>
+    <div class="card-body">
+
+      <div th:if="${orderResponseDto != null}">
+        <h4>Restaurant: <span th:text="${orderResponseDto.restaurantName}"></span></h4>
+        <h5>Status: <span th:text="${orderResponseDto.status}"></span></h5>
+
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Food Name</th>
+            <th>Quantity</th>
+            <th>Total Price</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="orderMenu : ${orderResponseDto.orderMenuList}">
+            <td th:text="${orderMenu.menu.foodName}"></td>
+            <td th:text="${orderMenu.quantity}"></td>
+            <td th:text="${orderMenu.totalPrice}"></td>
+          </tr>
+          </tbody>
+        </table>
+
+        <p>Total Price: <span th:text="${orderResponseDto.totalPrice}"></span></p>
+
+        <!-- Form to make an order -->
+        <form action="/restaurants/{restaurantId}/orders/{orderId}" method="post">
+          <input type="hidden" name="_method" value="patch">
+<!--          <div class="mb-3">-->
+<!--            <label for="memberIdInput" class="form-label">Member ID:</label>-->
+<!--            <input type="text" class="form-control" id="memberIdInput" name="memberId" th:value="${memberId}" />-->
+<!--          </div>-->
+
+          <button type="submit" class="btn btn-primary">Make Order</button>
+        </form>
+        <script>
+function makeOrder() {
+    // Get Authorization token from local storage
+     const authorization = localStorage.getItem('Authorization');
+
+     fetch(`/restaurants/${restaurantId}/orders`, {
+        method: 'Patch',
+        headers: {
+         'Content-Type': 'application/x-www-form-urlencoded',
+         'Authorization': 'Bearer ' + authorization,
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Handle the response as needed
+        console.log(data);
+    })
+    .catch(error => console.error('Error:', error));
+}
+</script>
+
+      </div>
+      <div th:unless="${orderResponseDto != null}">
+        <p class="text-muted">No order found for the given member.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS and Popper.js (required for Bootstrap) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .form-container {
+            background-color: #fff;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        label {
+            color: #888;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="file"] {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #5c6bc0;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #3949ab;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <!-- Create Menu Form -->
+    <h2>Create Menu</h2>
+    <form id="menuForm" method="post" enctype="multipart/form-data">
+        <label for="createImage">Image:</label>
+        <input type="file" id="createImage" name="image" accept="image/*" required/>
+        <label for="createFoodName">Menu Name:</label>
+        <input type="text" id="createFoodName" name="foodName" required/>
+        <label for="createPrice">Price:</label>
+        <input type="number" id="createPrice" name="price" required/>
+        <button type="submit">Create Menu</button>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery 추가 -->
+</div>
+<script th:inline="javascript">
+    const restaurantsId = [[${restaurantsId}]]; // 레스토랑 ID 가져오기
+    const menuId = [[${menuId}]]; // 메뉴 ID 가져오기
+</script>
+<script>
+    $(document).ready(function() {
+        // 폼이 제출되면
+        $("#menuForm").submit(function(event) {
+            event.preventDefault(); // 기본 폼 제출 동작을 중지합니다.
+
+            // 로컬 스토리지에서 Authorization 정보 가져오기
+            const authorization = localStorage.getItem("Authorization");
+
+            // HTTP 요청 헤더에 Authorization 정보 추가
+            const headers = {
+                'Authorization': 'Bearer ' + authorization
+            };
+
+            // 폼 데이터를 FormData 객체로 가져옵니다.
+            const formData = new FormData(this);
+
+            // 서버로 POST 요청 보내기
+            $.ajax({
+                url: '/restaurant/' + restaurantsId + '/menus',
+                type: 'POST',
+                headers: headers,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    // 서버 응답 처리
+                    console.log(response);
+                    // 원하는 동작 수행
+                },
+                error: function(error) {
+                    // 에러 처리
+                    console.error(error);
+                }
+            });
+        });
+    });
+</script>
+<div class="form-container">
+    <!-- Update Menu Form -->
+    <h2>Update Menu</h2>
+    <form th:action="@{'/restaurant/' + ${restaurantsId} + '/menus/' + ${menuId}}" method="post" enctype="multipart/form-data">
+        <label for="updateImage">New Image:</label>
+        <input type="file" id="updateImage" name="image" accept="image/*" required/>
+        <label for="updateFoodName">New Menu Name:</label>
+        <input type="text" id="updateFoodName" name="foodName" required/>
+        <label for="updatePrice">New Price:</label>
+        <input type="number" id="updatePrice" name="price" required/>
+        <button type="submit">Update Menu</button>
+    </form>
+</div>
+<div class="form-container">
+    <!-- Update Menu Image Form -->
+    <h2>Update Menu Image</h2>
+    <form th:action="@{'/restaurant' + ${restaurantsId} + '/menus/' + ${menuId} + '/images'}" method="post" enctype="multipart/form-data">
+        <label for="updateMenuImage">New Image:</label>
+        <input type="file" id="updateMenuImage" name="image" accept="
+image/*" required/>
+        <button type="submit">Update Menu Image</button>
+    </form>
+
+</div>
+</body>
+</html>

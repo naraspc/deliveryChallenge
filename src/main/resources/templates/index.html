@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delivery Challenge</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f8f8;
+      text-align: center;
+      margin: 50px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+
+    a {
+      text-decoration: none;
+      color: #007bff;
+      padding: 15px 30px;
+      border: 2px solid #007bff;
+      border-radius: 10px;
+      background-color: #fff;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    a:hover {
+      background-color: #007bff;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Welcome to Delivery Challenge</h1>
+
+<div class="button-container">
+  <a th:href="@{/members/signup}">회원가입</a>
+  <a th:href="@{/login}">로그인</a>
+  <a th:href="@{/restaurants}">가게 목록</a>
+  <a th:href="@{/restaurants/form}">가게 등록</a>
+</div>
+
+</body>
+</html>

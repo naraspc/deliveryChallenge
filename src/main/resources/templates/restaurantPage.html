@@ -1,0 +1,104 @@
+<!-- resources/templates/restaurantPage.html -->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant Page</title>
+
+  <!-- Bootstrap styles -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <style>
+    /* Your custom styles from the first code */
+    .index-header {
+        background-color: #adb5bd;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+    .search-bar {
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+    .restaurant-item {
+        background-color: #e9ecef;
+        border: 1px solid #dee2e6;
+        padding: 10px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+    .restaurant-item:hover {
+        background-color: #ced4da;
+    }
+    /* Improved pagination styles */
+    .pagination {
+        margin-top: 20px;
+    }
+    .pagination li {
+        display: inline-block;
+        margin-right: 5px;
+    }
+    .pagination a {
+        color: #007bff;
+        padding: 8px 12px;
+        border: 1px solid #007bff;
+        text-decoration: none;
+    }
+    .pagination .active a {
+        background-color: #007bff;
+        color: #fff;
+        border: 1px solid #007bff;
+    }
+    .pagination .disabled a {
+        color: #6c757d;
+        pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container mt-4">
+  <div class="index-header text-center">
+    <h1>메인페이지(index)</h1>
+  </div>
+  <div class="search-bar">
+    <form th:action="@{/restaurants/search}" method="get">
+      <input class="form-control" type="text" th:name="restaurantName" th:value="${restaurantName}" placeholder="음식점 이름" aria-label="Search">
+      <input class="form-control" type="text" th:name="address" th:value="${address}" placeholder="주소" aria-label="Search">
+      <input class="form-control" type="text" th:name="category" th:value="${category}" placeholder="카테고리" aria-label="Search">
+      <button class="btn btn-outline-secondary" type="submit">조건검색</button>
+    </form>
+  </div>
+  <script>
+</script>
+
+  <!-- Thymeleaf loop for restaurant items with limit -->
+  <div th:each="restaurant, i : ${pageDto.data}" class="restaurant-item" th:limit="10">
+    <h2 th:text="${restaurant.restaurantName}">Restaurant Name</h2>
+    <p th:text="${restaurant.address}">Address</p>
+    <p th:text="${'Category: ' + restaurant.category}">Category</p>
+    <p th:text="${'Tel: ' + restaurant.resNumber}">Phone Number</p>
+    <a th:href="@{'/restaurants/' + ${restaurant.id}}" class="btn btn-primary">메뉴 보기!</a>
+    <a th:href="@{'/restaurant/' + ${restaurant.id}}" class="btn btn-primary">메뉴 추가하기!</a>
+  </div>
+
+  <!-- Pagination -->
+  <div>
+    <ul class="pagination">
+      <li th:each="pageNumber : ${#numbers.sequence(0, pageDto.pageInfo.totalPages-1)}">
+        <a th:href="@{/restaurants(page=${pageNumber}, size = 10)}"
+           th:text="${pageNumber + 1}"
+           th:class="${pageDto.pageInfo.pageNumber == pageNumber} ? 'active' : ''"></a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- Bootstrap scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

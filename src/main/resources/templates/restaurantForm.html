@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Form</title>
+</head>
+<body>
+
+<h2>Restaurant Form</h2>
+
+<form id="restaurantForm">
+    <label for="restaurantName">Restaurant Name:</label>
+    <input type="text" id="restaurantName" name="restaurantName" required>
+
+    <br>
+
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" required>
+
+    <br>
+
+    <label for="category">Category:</label>
+    <select id="category" name="category" required>
+        <option value="KOREAN">Korean</option>
+        <option value="CHINESE">Chinese</option>
+        <option value="JAPANESE">Japanese</option>
+        <!-- Add more options as needed -->
+    </select>
+
+    <br>
+
+    <label for="resNumber">Reservation Number:</label>
+    <input type="text" id="resNumber" name="resNumber" required>
+
+    <br>
+
+    <!-- Remove memberId input field as it's not needed -->
+
+    <br>
+
+    <button type="button" onclick="submitForm()">Submit</button>
+</form>
+
+<script>
+    function submitForm() {
+        var restaurantForm = document.getElementById('restaurantForm');
+        var formData = new FormData(restaurantForm);
+
+        // Get Authorization token from localStorage
+        var authToken = localStorage.getItem('Authorization');
+
+        // Set Authorization header
+        var headers = new Headers({
+            'Authorization': 'Bearer ' + authToken
+        });
+
+        // Fetch API with headers
+        fetch('/restaurants', {
+            method: 'POST',
+            headers: headers,
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle response data as needed
+            console.log(data);
+        })
+        .catch(error => {
+            // Handle errors
+            console.error('Error:', error);
+        });
+    }
+</script>
+
+</body>
+</html>
