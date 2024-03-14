@@ -24,7 +24,7 @@
 
 # 🎞️ 프로젝트 시연
 
-[Delivery Challenge - 시연영상.mp4](https://prod-files-secure.s3.us-west-2.amazonaws.com/cdd52087-ff95-45e9-bb13-4280bf230c63/6ca55683-8e77-48e8-bc9e-55b705c6b579/Delivery_Challenge_-_%EC%8B%9C%EC%97%B0%EC%98%81%EC%83%81.mp4)
+[Delivery Challenge - 시연영상.mp4](https://file.notion.so/f/f/cdd52087-ff95-45e9-bb13-4280bf230c63/6ca55683-8e77-48e8-bc9e-55b705c6b579/Delivery_Challenge_-_%EC%8B%9C%EC%97%B0%EC%98%81%EC%83%81.mp4?id=6fded6e9-0150-461b-9b87-6b9239fa570b&table=block&spaceId=cdd52087-ff95-45e9-bb13-4280bf230c63&expirationTimestamp=1710504000000&signature=6gwynCLwnDUa0IYnj_D2PACxtmVmpErFWDcGkkA6Bpg&downloadName=Delivery+Challenge+-+%EC%8B%9C%EC%97%B0%EC%98%81%EC%83%81.mp4)
 
 ---
 
