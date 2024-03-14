@@ -28,7 +28,11 @@
 
 ---
 
-# 💫 새로 적용한 기술과 트러블슈팅
+# 💫 트러블 슈팅 및 기술적 의사 결정 👇
+
+![image](https://github.com/deliveryChallenge/deliveryChallenge/assets/140101271/32968d72-0882-4474-976a-04b93dcba82f)
+
+위치 : [팀 노션](https://www.notion.so/Project-Delivery-7b5a4966a2a647b6b7fba0e056ab026b?pvs=21) 내 중간부분 작업 정리 (트러블 슈팅)
 
 ## 🔑 spring security - refresh token
 
