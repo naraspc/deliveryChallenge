@@ -38,7 +38,8 @@
 
 - spring security를 이용하여 회원가입, 로그인을 구현하였고, refresh 토큰을 로컬 스토리지에 담는 방식으로 구현.
 
-![refresh token.PNG](https://prod-files-secure.s3.us-west-2.amazonaws.com/cdd52087-ff95-45e9-bb13-4280bf230c63/eb7f401b-12a3-4291-ab0b-0bdbcb3047f0/refresh_token.png)
+![image](https://github.com/deliveryChallenge/deliveryChallenge/assets/140101271/c4aeb8bd-01fd-41c2-8994-4f2a7e318ea2)
+
 
 - 트러블 슈팅
     - 응답에는 토큰이 잘 들어오지만 로컬 스토리지에는 null값이 담기는 문제
