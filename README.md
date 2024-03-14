@@ -79,7 +79,7 @@
 
 - **CI-CD + 무중단배포**
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/cdd52087-ff95-45e9-bb13-4280bf230c63/bdaed072-651f-4123-ace4-8d5a6603f43c/Untitled.png)
+![image](https://github.com/deliveryChallenge/deliveryChallenge/assets/140101271/f1a6d631-ed47-4ae4-9b83-64c98694b063)
 
 <aside>
 💡 **Github Actions, Docker, Nginx, AWS EC2**를 이용하여 
@@ -119,22 +119,24 @@ EC2 프리티어로 서버를 운영할 계획이기 때문에 nginx의 “리�
         - **원인추론** : github actions runner 가 실행 종료되었기 때문.
         - **해결방안** : github actions runner를 백그라운드에서도 계속 실행중으로 바꾸기 위해서 ec2에서 actions-runner 경로로 옮겨 nohub 명령어로 재실행
             
-            ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/cdd52087-ff95-45e9-bb13-4280bf230c63/5b9a2a84-cb5f-4206-babd-0d28328200b8/Untitled.png)
+           ![image](https://github.com/deliveryChallenge/deliveryChallenge/assets/140101271/c6ce8314-9cd2-44f2-b4d2-d2649914e8e6)
+
             
     - 아직 해결하지 못한 Trouble
     **하나의 인스턴스에 블루그린 무중단배포 후, 50% 확률로 502 Bad Gateway …**
         - **원인 추론 -** 로드밸런서에 8080, 8081 포트 리스너의 호스팅을 https 443포트로 리다이렉팅 시킨 후, 인스턴스로 향하는 대상그룹으로 트래픽을 전달해주고 있다. 
          8080, 8081포트 두개가 번갈아가며 꺼지고, 켜지기 때문에 443 포트에 대상그룹 두개를 지정해두면 가중치가 절반이 되어 50% 확률로 502 Bad Gateway가 나온다.
         - **임시 해결** : 8080포트(blue) 컨테이너가 실행중일때는 로드밸런서에서 443포트 대상그룹전달을 8080 대상그룹을 통해 인스턴스로 호스팅을 100% 전달하여 502 Bad Gateway를 없앰. 8081포트일경우 똑같이 적용.
-        
-        ![스크린샷 2024-01-25 오후 4.23.19.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/cdd52087-ff95-45e9-bb13-4280bf230c63/56dce5e6-6e72-4f31-abd4-3795cee8e23b/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2024-01-25_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_4.23.19.png)
-        
+          
+        ![image](https://github.com/deliveryChallenge/deliveryChallenge/assets/140101271/0d42cb33-08e8-48bd-9793-579e44a444a1)
+
 
 ## 🔎 elasticsearch, queryDSL, JPA 쿼리메서드 각각 기능구현과 비교테스트
 
-![엘라스틱 텟트.PNG](https://prod-files-secure.s3.us-west-2.amazonaws.com/cdd52087-ff95-45e9-bb13-4280bf230c63/a81a93ac-357d-4572-a77d-bc014451e521/%EC%97%98%EB%9D%BC%EC%8A%A4%ED%8B%B1_%ED%85%9F%ED%8A%B8.png)
+![image](https://github.com/deliveryChallenge/deliveryChallenge/assets/140101271/347bec52-0262-458f-903a-5f6ee2cf136f)
 
-![엘라스티 결과.PNG](https://prod-files-secure.s3.us-west-2.amazonaws.com/cdd52087-ff95-45e9-bb13-4280bf230c63/15337468-c9c5-401f-9165-e8c0c3f8107f/%EC%97%98%EB%9D%BC%EC%8A%A4%ED%8B%B0_%EA%B2%B0%EA%B3%BC.png)
+![image](https://github.com/deliveryChallenge/deliveryChallenge/assets/140101271/8f63b7fa-b46c-4533-9a37-ff642a4519f4)
+
 
 - 사용 소감
     - JPA 메소드 사용 시
@@ -250,31 +252,37 @@ EC2 프리티어로 서버를 운영할 계획이기 때문에 nginx의 “리�
 
 - cache 방식을 이용하면 조회 쪽에서 성능 개선할 수 있을 거라 생각하여 도입
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/cdd52087-ff95-45e9-bb13-4280bf230c63/6ec125c3-8e00-4aea-a735-78e96abfd4a7/Untitled.png)
+![image](https://github.com/deliveryChallenge/deliveryChallenge/assets/140101271/4fcc02e1-c194-49c1-a532-f86783ff4c1c)
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/cdd52087-ff95-45e9-bb13-4280bf230c63/af34eb12-8518-40d2-98a9-439db3175b07/Untitled.png)
+![image](https://github.com/deliveryChallenge/deliveryChallenge/assets/140101271/c37a072e-b491-471a-93e2-f4426023dc63)
 
 위 사진과 같은 조건으로 테스트를 했을때,
 오류 0%, 평균 조회속도 6120MS의 수치를 얻을 수 있었음.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/cdd52087-ff95-45e9-bb13-4280bf230c63/1f776766-e07c-48e1-930b-84d0ba5259bc/Untitled.png)
+![image](https://github.com/deliveryChallenge/deliveryChallenge/assets/140101271/44a19e29-f6ad-4267-a83b-47a3ef178c7a)
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/cdd52087-ff95-45e9-bb13-4280bf230c63/05f15fc3-a4fa-4319-b227-157d0ea6411d/Untitled.png)
+![image](https://github.com/deliveryChallenge/deliveryChallenge/assets/140101271/38938c8e-8522-4525-a095-9de9e8526170)
 
 3천명의 트래픽을 조건으로 설정 하였을때 평균 13775MS, 7%의 오류를 보였다.
 
 응답시간의 해결을 위해 아래와 같이 Redis를 도입해 보았다.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/cdd52087-ff95-45e9-bb13-4280bf230c63/a2474a4b-9191-4434-a31b-31a596ccb5d3/Untitled.png)
+![image](https://github.com/deliveryChallenge/deliveryChallenge/assets/140101271/89f3e15e-2d1c-43b2-a96a-2c3b4817702a)
 
 그리고, 테스트의 성능 개선 결과를 확인하기 위해 세팅은 동일하게 하였다.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/cdd52087-ff95-45e9-bb13-4280bf230c63/f8541ca2-2d73-434c-a310-5738958bdd38/Untitled.png)
+![image](https://github.com/deliveryChallenge/deliveryChallenge/assets/140101271/d64aa110-2faa-42fd-b4a8-9129255ead45)
 
 이후 나온 결과
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/cdd52087-ff95-45e9-bb13-4280bf230c63/6d1292e4-a32b-4a18-81ea-6da6e9b47b9b/Untitled.png)
+![image](https://github.com/deliveryChallenge/deliveryChallenge/assets/140101271/986daa1f-159f-4087-a3c3-cf23c07fccba)
 
 12000개의 표본 처리동안, 평균 2368MS의 속도를 보였고, 0%의 오류율을 보였다.
 
 즉, Redis의 단순한 적용만으로 82.71%의 성능 개선을 확인 할 수 있었다.
+
+## 아쉬운점 및 구현 예정 목록
+
+1. DB의 HA구성 및 CUD, R 기능 분리하여 조회 시 성능 측정
+2. MySQL에 인덱스를 적용하여 성능 테스트
+
